@@ -4,16 +4,21 @@ abstract class NoteDetailEvent extends Equatable {
   const NoteDetailEvent();
 
   const factory NoteDetailEvent.apply(
-      {String? id, required String title, required String content}) = Apply;
+      {String? id,
+      bool? isSynced,
+      required String title,
+      required String content}) = Apply;
 }
 
 class Apply extends NoteDetailEvent {
   final String? id;
+  final bool? isSynced;
   final String title;
   final String content;
 
   const Apply({
     this.id,
+    this.isSynced,
     required this.title,
     required this.content,
   }) : super();

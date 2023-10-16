@@ -10,7 +10,9 @@ abstract class HomeEvent extends Equatable {
 
   const factory HomeEvent.swipeNoteToDelete(Note note) = SwipeNoteToDelete;
 
-  factory HomeEvent.loadNotes() = LoadNotes;
+  factory HomeEvent.initialData() = InitialData;
+
+  factory HomeEvent.syncData() = SyncData;
 }
 
 class AddNoteClicked extends HomeEvent {
@@ -32,7 +34,12 @@ class SwipeNoteToDelete extends HomeEvent {
   List<Object> get props => [note];
 }
 
-class LoadNotes extends HomeEvent {
+class InitialData extends HomeEvent {
+  @override
+  List<Object> get props => [];
+}
+
+class SyncData extends HomeEvent {
   @override
   List<Object> get props => [];
 }

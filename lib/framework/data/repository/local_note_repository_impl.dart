@@ -1,8 +1,8 @@
 import 'package:jot_down/domain/data/local/datasource/note_datasource.dart';
-import 'package:jot_down/domain/data/repository/note_repository.dart';
+import 'package:jot_down/domain/data/repository/local_note_repository.dart';
 import 'package:jot_down/domain/model/note.dart';
 
-class NoteRepositoryImpl extends NoteRepository {
+class NoteRepositoryImpl extends LocalNoteRepository {
   NoteDatasource datasource;
 
   NoteRepositoryImpl({required this.datasource});
@@ -30,5 +30,10 @@ class NoteRepositoryImpl extends NoteRepository {
   @override
   Future<void> updateNote(Note note) async {
     datasource.updateNote(note);
+  }
+
+  @override
+  Future<void> addNotes(List<Note> notes) async {
+    datasource.addNotes(notes);
   }
 }

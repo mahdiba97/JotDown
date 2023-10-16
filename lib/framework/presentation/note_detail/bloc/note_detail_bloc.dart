@@ -24,13 +24,21 @@ class NoteDetailBloc
       produceSideEffect(NoteDetailEffect.onProgress());
       String title = event.title;
       String content = event.content;
-      if (event.id != null) {
-        await updateNoteUseCase
-            .call(Note(id: event.id!, title: title, content: content));
+      if (event.id != null && event.id!.isNotEmpty) {
+        await updateNoteUseCase.call(Note(
+            id: event.id!,
+            isSynced: event.isSynced!,
+            isDeleted: false,
+            title: title,
+            content: content));
       } else {
         var uuid = const Uuid();
-        await addNoteUseCase
-            .call(Note(id: uuid.v4(), title: title, content: content));
+        await addNoteUseCase.call(Note(
+            id: uuid.v4(),
+            isSynced: false,
+            isDeleted: false,
+            title: title,
+            content: content));
       }
       produceSideEffect(NoteDetailEffect.applyDone());
     });

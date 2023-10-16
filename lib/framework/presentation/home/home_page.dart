@@ -21,7 +21,7 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    BlocProvider.of<HomeBloc>(context).add(HomeEvent.loadNotes());
+    BlocProvider.of<HomeBloc>(context).add(HomeEvent.initialData());
   }
 
   @override
@@ -34,14 +34,12 @@ class _HomePageState extends State<HomePage> {
                 .pushNamed(AppRoutes.noteDetails)
                 .then((value) {
               isLoading = true;
-              BlocProvider.of<HomeBloc>(context).add(HomeEvent.loadNotes());
+              BlocProvider.of<HomeBloc>(context).add(HomeEvent.initialData());
             });
-            break;
           case DeleteAllNotesDone:
             ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
               content: Text('All Notes Deleted'),
             ));
-            break;
           case DeleteNoteDone:
             ScaffoldMessenger.of(context).hideCurrentSnackBar();
             ScaffoldMessenger.of(context).showSnackBar(
@@ -49,12 +47,21 @@ class _HomePageState extends State<HomePage> {
                 content: Text('Note Deleted'),
               ),
             );
-            break;
           case FinishLoading:
             setState(() {
               isLoading = false;
             });
-            break;
+          case SyncFinished:
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                content: Text(
+              (effect as SyncFinished).syncResult,
+            )));
+          case NetworkError:
+            ScaffoldMessenger.of(context).hideCurrentSnackBar();
+            ScaffoldMessenger.of(context).showSnackBar(const SnackBar(
+              content: Text('Network Error'),
+            ));
           default:
             throw UnimplementedError('Unknown HomeEffect: $effect');
         }
@@ -69,7 +76,13 @@ class _HomePageState extends State<HomePage> {
                 context.read<HomeBloc>().add(HomeEvent.deleteAllNotesClicked());
               },
               icon: const Icon(Icons.delete),
-            )
+            ),
+            IconButton(
+              onPressed: () {
+                context.read<HomeBloc>().add(HomeEvent.syncData());
+              },
+              icon: const Icon(Icons.sync),
+            ),
           ],
         ),
         floatingActionButton: FloatingActionButton(
@@ -128,7 +141,8 @@ class NoteItemView extends StatelessWidget {
                 Navigator.of(context)
                     .pushNamed(AppRoutes.noteDetails, arguments: note)
                     .then((value) {
-                  BlocProvider.of<HomeBloc>(context).add(HomeEvent.loadNotes());
+                  BlocProvider.of<HomeBloc>(context)
+                      .add(HomeEvent.initialData());
                 });
               })),
     );

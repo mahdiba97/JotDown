@@ -11,6 +11,7 @@ import 'package:jot_down/framework/presentation/note_detail/bloc/note_detail_blo
 
 void main() {
   configureDependencies();
+  // Logger.level = Level.info;
   runApp(
     MultiBlocProvider(
       providers: [
@@ -40,8 +41,8 @@ class MyApp extends StatelessWidget {
             final Note? note = settings.arguments as Note?;
             return MaterialPageRoute(
                 builder: (_) => NoteDetailPage(
-                      note: note,
-                    ));
+                  note: note,
+                ));
           default:
             return null;
         }

@@ -92,6 +92,7 @@ class _NoteDetailPageState extends State<NoteDetailPage> {
                                             .read<NoteDetailBloc>()
                                             .add(NoteDetailEvent.apply(
                                               id: widget.note?.id,
+                                              isSynced: widget.note?.isSynced,
                                               title: _title,
                                               content: _content,
                                             ));

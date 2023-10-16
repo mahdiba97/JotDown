@@ -1,4 +1,3 @@
-import 'package:flutter/widgets.dart';
 import 'package:jot_down/domain/data/local/datasource/note_datasource.dart';
 import 'package:jot_down/domain/model/mapper.dart';
 import 'package:jot_down/domain/model/note.dart';
@@ -13,7 +12,6 @@ class NoteDatasourceImpl extends NoteDatasource {
 
   @override
   Future<void> addNote(Note note) async {
-    debugPrint('addNote_${note.id}');
     dao.insert(mapper.from(note));
   }
 
@@ -37,5 +35,10 @@ class NoteDatasourceImpl extends NoteDatasource {
   @override
   Future<void> updateNote(Note note) async {
     dao.updateNote(mapper.from(note));
+  }
+
+  @override
+  Future<void> addNotes(List<Note> notes) async {
+    dao.addNotes(notes.map(mapper.from).toList());
   }
 }

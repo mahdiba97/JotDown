@@ -10,4 +10,6 @@ abstract class NoteDatasource {
   Future<void> deleteNote(Note note);
 
   Future<void> deleteAllNotes();
+
+  Future<void> addNotes(List<Note> notes);
 }
