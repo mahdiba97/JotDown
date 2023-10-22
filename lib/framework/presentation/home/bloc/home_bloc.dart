@@ -43,9 +43,6 @@ class HomeBloc extends SideEffectBloc<HomeEvent, HomeState, HomeEffect> {
       await updateNoteUseCase
           .call(event.note.copyWith(isDeleted: true, isSynced: false));
       produceSideEffect(HomeEffect.deleteNoteDone());
-      // add(InitialData());
-      // produceSideEffect(HomeEffect.deleteNoteDone());
-      // add(InitialData());
     });
 
     on<InitialData>((event, emit) async {

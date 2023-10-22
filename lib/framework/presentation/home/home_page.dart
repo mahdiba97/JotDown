@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:jot_down/config/route/app_routes.dart';
@@ -122,24 +124,34 @@ class _HomePageState extends State<HomePage> {
   }
 }
 
-class NoteItemView extends StatelessWidget {
+class NoteItemView extends StatefulWidget {
   final Note note;
 
   const NoteItemView({Key? key, required this.note}) : super(key: key);
+
+  @override
+  State<NoteItemView> createState() => _NoteItemViewState();
+}
+
+class _NoteItemViewState extends State<NoteItemView> {
+  final Color _color =
+      HSVColor.fromAHSV(1.0, Random().nextInt(265).toDouble(), .2, 1.0)
+          .toColor();
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 4, horizontal: 16),
       child: Card(
+          color: _color,
           child: ListTile(
-              title: Text(note.title),
-              subtitle: Text(note.content),
+              title: Text(widget.note.title),
+              subtitle: Text(widget.note.content),
               leading: const Icon(Icons.notes),
               trailing: const Icon(Icons.arrow_forward_ios),
               onTap: () {
                 Navigator.of(context)
-                    .pushNamed(AppRoutes.noteDetails, arguments: note)
+                    .pushNamed(AppRoutes.noteDetails, arguments: widget.note)
                     .then((value) {
                   BlocProvider.of<HomeBloc>(context)
                       .add(HomeEvent.initialData());

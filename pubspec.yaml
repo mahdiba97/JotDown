@@ -39,4 +39,5 @@ flutter:
   uses-material-design: true
   assets:
     - assets/photos/ic_nothing_to_show.png
-
+    - assets/photos/ic_writing.png
+    - assets/photos/ic_notepad.png

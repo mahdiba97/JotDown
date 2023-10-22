@@ -8,6 +8,7 @@ import 'package:jot_down/framework/presentation/home/bloc/home_bloc.dart';
 import 'package:jot_down/framework/presentation/home/home_page.dart';
 import 'package:jot_down/framework/presentation/note_detail/NoteDetailPage.dart';
 import 'package:jot_down/framework/presentation/note_detail/bloc/note_detail_bloc.dart';
+import 'package:jot_down/framework/presentation/onboarding/onboarding_screen.dart';
 
 void main() {
   configureDependencies();
@@ -48,7 +49,7 @@ class MyApp extends StatelessWidget {
         }
       },
       title: 'JotDown',
-      home: const HomePage(),
+      home: const OnboardingScreen(),
     );
   }
 }
